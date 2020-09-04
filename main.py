@@ -1,5 +1,6 @@
 import os
 import time
+
 from selenium import webdriver, common
 
 os.system('cls && title [TikTok Automated Viewbot]')
