@@ -1,5 +1,4 @@
 import os
-import time
 
 from selenium import webdriver, common
 
@@ -26,7 +25,7 @@ while captcha:
     # Attempts to select the "Views" option.
     try:
         driver.find_element_by_xpath(
-            '/html/body/div[3]/div[1]/div[3]/div/div[4]/div/button'
+            '/html/body/div[4]/div[1]/div[3]/div/div[4]/div/button'
         ).click()
     except (
         common.exceptions.NoSuchElementException,
@@ -37,49 +36,35 @@ while captcha:
     print('[!] Running...')
     captcha = False
 
-# Pastes the URL into the "Enter video URL" textbox.
+# Pastes the URL into the "Enter URL" textbox.
 driver.find_element_by_xpath(
-    '/html/body/div[3]/div[4]/div/div/div/form/div/input'
+    '/html/body/div[4]/div[4]/div/div/div/form/div/input'
 ).send_keys(VIDEO_URL)
 
 while True:
-    # Clicks the "Search" button.
-    driver.find_element_by_xpath('/html/body/div[3]/div[4]/div/div/div/form/div/div/button').click()
-    time.sleep(2)
+    os.system(
+        f'title [TikTok Automated Viewbot] - Views Sent: {beautify(views_sent)} ^| Sending...'
+    )
+    waiting = True
 
-    try:
-        # Clicks the "Send Views" button.
+    while waiting:
+        # Clicks the "Search" button.
         driver.find_element_by_xpath(
-            '/html/body/div[3]/div[4]/div/div/div/div/div/div[1]/div/form/button'
+            '/html/body/div[4]/div[4]/div/div/div/form/div/div/button'
         ).click()
-    except common.exceptions.NoSuchElementException:
-        driver.quit()
-        os.system('cls')
-        print(
-            f'[>] TikTok Video URL: {VIDEO_URL}\n'
-            '[!] Solve the captcha...\n'
-            '[!] Invalid URL.'
-        )
-        break
-    else:
-        views_sent += 1000
-        os.system(f'title [TikTok Automated Viewbot] - Views Sent: {beautify(views_sent)}')
+        os.system('TIMEOUT 2 >NUL')
 
-        seconds = 62
-        while seconds > 0:
-            seconds -= 1
-            os.system(
-                f'title [TikTok Automated Viewbot] - Views Sent: {beautify(views_sent)} ^| Sending '
-                f'in: {seconds} seconds'
-            )
-            time.sleep(1)
-        os.system(
-            f'title [TikTok Automated Viewbot] - Views Sent: {beautify(views_sent)} ^| Sending...'
-        )
-
-os.system(
-    'title [TikTok Automated Viewbot] - Restart required && '
-    'pause >NUL && '
-    'title [TikTok Automated Viewbot] - Exiting...'
-)
-time.sleep(3)
+        try:
+            # Clicks the "Send Views" button.
+            driver.find_element_by_xpath(
+                '/html/body/div[4]/div[4]/div/div/div/div/div[1]/div/form/button'
+            ).click()
+        except (
+            common.exceptions.NoSuchElementException,
+            common.exceptions.ElementNotInteractableException
+        ):
+            continue
+        else:
+            views_sent += 1000
+            os.system(f'title [TikTok Automated Viewbot] - Views Sent: {beautify(views_sent)}')
+            waiting = False
