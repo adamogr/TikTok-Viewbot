@@ -3,7 +3,7 @@ import os
 from selenium import webdriver, common
 
 os.system('cls && title [TikTok Automated Viewbot]')
-VIDEO_URL = input('[>] TikTok Video URL: ')
+VIDEO_URL = input('[>] https://www.tiktok.com/@techsideinfo/video/6898228095103307010?lang=en: ')
 
 views_sent = 0
 options = webdriver.ChromeOptions()
